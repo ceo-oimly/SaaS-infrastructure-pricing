@@ -1,0 +1,323 @@
+/* COLOR PALETTE & CONSTANTS */
+:root {
+  --bg: #0B0C0F;
+  --card: #13151A;
+  --ink: #EAECEF;
+  --ink-muted: #8B949E;
+  --accent: #3D82F6;
+  --border: #21262D;
+  
+  /* Typography System Stack: Serif Headings + Technical Mono/Sans Body */
+  --font-heading:;
+  --font-body: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+
+  /* Fluid Typography via clamp() */
+  --text-sm: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-base: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.6vw, 1.35rem);
+  --text-xl: clamp(1.75rem, 1.5rem + 1.2vw, 2.5rem);
+  --text-title: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
+
+  /* Fluid Spacing via clamp() */
+  --space-xs: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
+  --space-sm: clamp(0.75rem, 0.6rem + 0.75vw, 1.25rem);
+  --space-md: clamp(1.25rem, 1rem + 1.25vw, 2rem);
+  --space-lg: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  padding: var(--space-lg) var(--space-sm);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+}
+
+/* HEADER */
+header {
+  margin-bottom: var(--space-lg);
+  max-width: 600px;
+}
+
+h1 {
+  font-family: var(--font-heading);
+  font-size: var(--text-title);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-xs);
+}
+
+p.subtitle {
+  color: var(--ink-muted);
+  font-size: var(--text-lg);
+}
+
+/* BILLING CYCLE TOGGLE LOGIC
+  Pure CSS Checkbox Hack using :checked and sibling selectors
+*/
+.toggle-wrapper {
+  border: none;
+  margin-bottom: var(--space-lg);
+}
+
+.toggle-wrapper legend {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  margin-bottom: var(--space-xs);
+}
+
+/* Hidden Checkbox Input */
+.toggle-checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Custom Switch Container */
+.toggle-label {
+  display: inline-flex;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-option {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+  transition: color 0.2s, background-color 0.2s;
+}
+
+/* Active States base on Checkbox status */
+.toggle-checkbox:not(:checked) ~ .toggle-label .monthly,
+.toggle-checkbox:checked ~ .toggle-label .yearly {
+  background-color: var(--border);
+  color: var(--ink);
+}
+
+.toggle-checkbox:focus-visible ~ .toggle-label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Price State Visibility Toggle */
+.price-yearly {
+  display: none;
+}
+
+.toggle-checkbox:checked ~ .grid-container .price-monthly {
+  display: none;
+}
+
+.toggle-checkbox:checked ~ .grid-container .price-yearly {
+  display: inline;
+}
+
+/* CSS GRID LAYOUT CONFIGURATION
+  Responsive Areas: 
+  - 320px+: 1 column stack
+  - 768px+: 2x2 grid
+  - 1024px+: 4 columns horizontal layout
+*/
+.grid-container {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-areas:
+    "starter"
+    "pro"
+    "team"
+    "enterprise";
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "starter pro"
+      "team enterprise";
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "starter pro team enterprise";
+    
+    /* Subgrid Configuration for alignment across cards:
+       Header(1), Price(2), Features-List(3 [span 5]), Action-Button(4)
+    */
+    grid-template-rows: auto auto repeat(5, auto) auto;
+  }
+}
+
+/* CARD STYLING */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Area Mapping */
+.card-starter { grid-area: starter; }
+.card-pro { grid-area: pro; }
+.card-team { grid-area: team; }
+.card-enterprise { grid-area: enterprise; }
+
+/* Enable Subgrid Alignment on Desktop */
+@media (min-width: 1024px) {
+  .card {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 8;
+  }
+}
+
+/* FEATURED CARD SPECIFIC (PRO TIER) */
+.card-pro {
+  transform: scale(1.03);
+  z-index: 2;
+  border: 1px solid transparent;
+  background-image: 
+    linear-gradient(var(--card), var(--card)), 
+    linear-gradient(180deg, var(--accent), var(--border));
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5);
+}
+
+/* Badge */
+.badge {
+  position: absolute;
+  top: -12px;
+  right: var(--space-md);
+  background: var(--accent);
+  color: var(--ink);
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px var(--space-xs);
+  font-weight: 600;
+}
+
+/* CARD CONTENT */
+.tier-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-xs);
+}
+
+.tier-desc {
+  color: var(--ink-muted);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.price-container {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-sm);
+}
+
+.price-period {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+/* SUBGRID FOR FEATURES */
+.features {
+  list-style: none;
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 1024px) {
+  .features {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+  }
+}
+
+.features li {
+  font-size: var(--text-sm);
+  padding: var(--space-xs) 0;
+  border-bottom: 1px dashed #1C2128;
+  color: var(--ink);
+}
+
+.features li.disabled {
+  color: var(--ink-muted);
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+/* ACTION BUTTONS */
+.btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: var(--space-xs) var(--space-sm);
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--border);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: auto;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background-color: var(--border);
+  outline: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: #2563EB;
+  border-color: #2563EB;
+}

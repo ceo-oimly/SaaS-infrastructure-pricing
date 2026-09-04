@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaaS Infrastructure Pricing</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Infrastructure Pricing</h1>
+      <p class="subtitle">Deploy instantly. Scale predictably without surprise limits.</p>
+    </header>
+
+    <!-- Pure CSS Toggle Checkbox -->
+    <input type="checkbox" id="billing-toggle" class="toggle-checkbox" aria-label="Toggle annual billing">
+
+    <fieldset class="toggle-wrapper">
+      <legend>Billing Cycle</legend>
+      <label for="billing-toggle" class="toggle-label">
+        <span class="toggle-option monthly">Monthly Billing</span>
+        <span class="toggle-option yearly">Yearly Billing (20% Off)</span>
+      </label>
+    </fieldset>
+
+    <div class="grid-container">
+      
+      <!-- STARTER TIER -->
+      <section class="card card-starter">
+        <div>
+          <h2 class="tier-title">Starter</h2>
+          <p class="tier-desc">Ideal for personal hobby builds and local testing environment.</p>
+        </div>
+        <div class="price-container">
+          <span class="price-monthly">$9<span class="price-period">/mo</span></span>
+          <span class="price-yearly">$90<span class="price-period">/yr</span></span>
+        </div>
+        <ul class="features">
+          <li>1 CPU Core</li>
+          <li>512 MB RAM</li>
+          <li>10 GB SSD Storage</li>
+          <li class="disabled">Automated Backups</li>
+          <li class="disabled">Dedicated SLA Guarantee</li>
+        </ul>
+        <a href="#" class="btn">Get Started</a>
+      </section>
+
+      <!-- PRO TIER (FEATURED) -->
+      <section class="card card-pro">
+        <span class="badge">Most Popular</span>
+        <div>
+          <h2 class="tier-title">Pro</h2>
+          <p class="tier-desc">Designed for production-ready single node applications.</p>
+        </div>
+        <div class="price-container">
+          <span class="price-monthly">$29<span class="price-period">/mo</span></span>
+          <span class="price-yearly">$290<span class="price-period">/yr</span></span>
+        </div>
+        <ul class="features">
+          <li>4 CPU Cores</li>
+          <li>8 GB RAM</li>
+          <li>100 GB SSD Storage</li>
+          <li>Automated Daily Backups</li>
+          <li class="disabled">Dedicated SLA Guarantee</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Get Started</a>
+      </section>
+
+      <!-- TEAM TIER -->
+      <section class="card card-team">
+        <div>
+          <h2 class="tier-title">Team</h2>
+          <p class="tier-desc">High-concurrency setups for growing business workloads.</p>
+        </div>
+        <div class="price-container">
+          <span class="price-monthly">$79<span class="price-period">/mo</span></span>
+          <span class="price-yearly">$790<span class="price-period">/yr</span></span>
+        </div>
+        <ul class="features">
+          <li>16 CPU Cores</li>
+          <li>32 GB RAM</li>
+          <li>500 GB SSD Storage</li>
+          <li>Automated Hourly Backups</li>
+          <li class="disabled">Dedicated SLA Guarantee</li>
+        </ul>
+        <a href="#" class="btn">Get Started</a>
+      </section>
+
+      <!-- ENTERPRISE TIER -->
+      <section class="card card-enterprise">
+        <div>
+          <h2 class="tier-title">Enterprise</h2>
+          <p class="tier-desc">Custom cluster topologies built for enterprise SLA needs.</p>
+        </div>
+        <div class="price-container">
+          <span class="price-monthly">$249<span class="price-period">/mo</span></span>
+          <span class="price-yearly">$2490<span class="price-period">/yr</span></span>
+        </div>
+        <ul class="features">
+          <li>64 CPU Cores</li>
+          <li>128 GB RAM</li>
+          <li>2 TB NVMe Storage</li>
+          <li>Automated Real-time Replication</li>
+          <li>99.99% Dedicated SLA Guarantee</li>
+        </ul>
+        <a href="#" class="btn">Get Started</a>
+      </section>
+
+    </div>
+  </div>
+
+</body>
+</html>
